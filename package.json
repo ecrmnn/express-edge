@@ -1,0 +1,56 @@
+{
+  "name": "express-edge",
+  "version": "1.0.0",
+  "description": "Use Edge templating engine with Express",
+  "main": "dist/index.js",
+  "scripts": {
+    "pretest": "rm -rf dist && npm run transpile",
+    "test": "node_modules/.bin/mocha test/tests.js",
+    "transpile": "node_modules/babel-cli/bin/babel.js src --out-dir dist",
+    "eslint": "node_modules/.bin/eslint src/ test/",
+    "prepublishOnly": "npm run transpile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ecrmnn/module-boilerplate"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  },
+  "keywords": [
+    "express",
+    "express.js",
+    "adonis",
+    "edge",
+    "template",
+    "templating"
+  ],
+  "author": {
+    "name": "Daniel Eckermann",
+    "email": "danieleckermann@gmail.com",
+    "url": "http://danieleckermann.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ecrmnn/module-boilerplate/issues"
+  },
+  "homepage": "https://github.com/ecrmnn/module-boilerplate",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-preset-env": "^1.6.1",
+    "body-parser": "^1.18.2",
+    "chai": "^4.1.0",
+    "eslint": "^4.12.1",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.7.0",
+    "express": "^4.16.2",
+    "mocha": "^3.4.2",
+    "supertest": "^3.0.0"
+  },
+  "dependencies": {
+    "edge.js": "^1.1.4"
+  }
+}
