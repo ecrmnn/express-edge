@@ -15,7 +15,7 @@ describe('Test Suite', () => {
     app = express();
 
     app.use(bodyParser.json());
-    app.use(dist);
+    app.use(dist.expressEdge);
 
     app.set('views', `${__dirname}/views`);
 

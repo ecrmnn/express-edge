@@ -1,4 +1,5 @@
 # express-edge
+
 > Use Edge templating engine with Express
 
 [![travis](https://img.shields.io/travis/ecrmnn/express-edge/master.svg?style=flat-square)](https://travis-ci.org/ecrmnn/express-edge/builds)
@@ -9,20 +10,25 @@
 [![eslint](https://img.shields.io/badge/code_style-airbnb-blue.svg?style=flat-square)](https://github.com/airbnb/javascript)
 
 ### Installation
+
 ```bash
 npm install express-edge --save
 ```
 
 ### Usage
-See the [Edge documentation](http://edge.adonisjs.com/) for how to structure your templates.
 
+See the [Edge documentation](http://edge.adonisjs.com/) for how to structure your templates.
 
 ```javascript
 const express = require('express');
 const app = express();
+const expressEdge = require('express-edge');
+
+// Configure Edge if need to
+expressEdge.config({cache: process.env.NODE_ENV === 'production'});
 
 // Automatically sets view engine and adds dot notation to app.render
-app.use(require('express-edge'));
+app.use(expressEdge.expressEdge);
 app.set('views', `${__dirname}/views`);
 
 app.get('/', (req, res) => {
@@ -33,4 +39,5 @@ app.listen(3000);
 ```
 
 ### License
+
 MIT © [Daniel Eckermann](http://danieleckermann.com)
