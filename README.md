@@ -9,13 +9,13 @@
 [![prs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![eslint](https://img.shields.io/badge/code_style-airbnb-blue.svg?style=flat-square)](https://github.com/airbnb/javascript)
 
-### Installation
+## Installation
 
 ```bash
 npm install express-edge --save
 ```
 
-### Usage
+## Usage
 
 See the [Edge documentation](http://edge.adonisjs.com/) for how to structure your templates.
 
@@ -38,6 +38,6 @@ app.get('/', (req, res) => {
 app.listen(3000);
 ```
 
-### License
+## License
 
 MIT © [Daniel Eckermann](http://danieleckermann.com)
