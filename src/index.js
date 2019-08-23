@@ -3,57 +3,57 @@
 const fs = require('fs');
 const edge = require('edge.js');
 
-const config = ({cache}={cache: false}) => {
-    edge.configure({
-        cache: cache
-    });
+const config = ({ cache } = { cache: false }) => {
+  edge.configure({
+    cache,
+  });
 };
 
 const expressEdge = (req, res, next) => {
-    /*
-    |-------------------------------------------------------------------------------------------------
-    | Override the app.render function so that we can use dot notation
-    |-------------------------------------------------------------------------------------------------
-    */
+  /*
+  |-------------------------------------------------------------------------------------------------
+  | Override the app.render function so that we can use dot notation
+  |-------------------------------------------------------------------------------------------------
+  */
 
-    const render = res.render;
+  const render = res.render;
 
-    res.render = function _render(view, options, callback) {
-        const self = this;
+  res.render = function _render(view, options, callback) {
+    const self = this;
 
-        render.call(self, view.replace('.', '/'), options, callback);
-    };
+    render.call(self, view.replace('.', '/'), options, callback);
+  };
 
-    /*
-    |-------------------------------------------------------------------------------------------------
-    | Register the edge view engine
-    |-------------------------------------------------------------------------------------------------
-    */
+  /*
+  |-------------------------------------------------------------------------------------------------
+  | Register the edge view engine
+  |-------------------------------------------------------------------------------------------------
+  */
 
-    req.app.engine('edge', (filePath, options, callback) => {
-        edge.registerViews(options.settings.views);
+  req.app.engine('edge', (filePath, options, callback) => {
+    edge.registerViews(options.settings.views);
 
-        fs.readFile(filePath, 'utf-8', (err, content) => {
-            if (err) {
-                return callback(err);
-            }
+    fs.readFile(filePath, 'utf-8', (err, content) => {
+      if (err) {
+        return callback(err);
+      }
 
-            return callback(null, edge.renderString(content, options));
-        });
+      return callback(null, edge.renderString(content, options));
     });
+  });
 
-    /*
-    |-------------------------------------------------------------------------------------------------
-    | Set the app view engine
-    |-------------------------------------------------------------------------------------------------
-    */
+  /*
+  |-------------------------------------------------------------------------------------------------
+  | Set the app view engine
+  |-------------------------------------------------------------------------------------------------
+  */
 
-    req.app.set('view engine', 'edge');
+  req.app.set('view engine', 'edge');
 
-    next();
+  next();
 };
 
 module.exports = {
-    config, 
-    expressEdge
+  config,
+  expressEdge,
 };
