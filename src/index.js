@@ -9,7 +9,7 @@ const config = ({ cache } = { cache: false }) => {
   });
 };
 
-const expressEdge = (req, res, next) => {
+const engine = (req, res, next) => {
   /*
   |-------------------------------------------------------------------------------------------------
   | Override the app.render function so that we can use dot notation
@@ -53,7 +53,4 @@ const expressEdge = (req, res, next) => {
   next();
 };
 
-module.exports = {
-  config,
-  expressEdge,
-};
+module.exports = { config, engine };

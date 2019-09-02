@@ -2,6 +2,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const edge = require('edge.js');
 
 const { describe, it, before } = require('mocha');
 const { expect } = require('chai');
@@ -10,12 +11,12 @@ const dist = require('../dist');
 
 let app;
 
-describe('Test Suite', () => {
+describe('View Test Suite', () => {
   before(() => {
     app = express();
 
     app.use(bodyParser.json());
-    app.use(dist.expressEdge);
+    app.use(dist.engine);
 
     app.set('views', `${__dirname}/views`);
 
@@ -31,6 +32,8 @@ describe('Test Suite', () => {
       .get('/hello')
       .end((err, res) => {
         expect(res.text.trim()).to.eql('hello world');
+        // eslint-disable-next-line
+        expect(edge._options.cache).to.eql(false);
         done();
       });
   });
@@ -41,6 +44,8 @@ describe('Test Suite', () => {
       .send({ name: 'daniel' })
       .end((err, res) => {
         expect(res.text.trim()).to.eql('hello, daniel');
+        // eslint-disable-next-line
+        expect(edge._options.cache).to.eql(false);
         done();
       });
   });
@@ -50,6 +55,8 @@ describe('Test Suite', () => {
       .get('/conditionals')
       .end((err, res) => {
         expect(res.text.trim()).to.eql('hello');
+        // eslint-disable-next-line
+        expect(edge._options.cache).to.eql(false);
         done();
       });
   });
@@ -65,6 +72,8 @@ describe('Test Suite', () => {
       })
       .end((err, res) => {
         expect(res.text.trim()).to.eql('Daniel Eckermann (ecrmnn)');
+        // eslint-disable-next-line
+        expect(edge._options.cache).to.eql(false);
         done();
       });
   });
@@ -80,6 +89,34 @@ describe('Test Suite', () => {
       })
       .end((err, res) => {
         expect(res.text.trim()).to.eql('Daniel Eckermann (ecrmnn)');
+        // eslint-disable-next-line
+        expect(edge._options.cache).to.eql(false);
+        done();
+      });
+  });
+});
+
+describe('Cache Test Suite', () => {
+  before(() => {
+    app = express();
+
+    dist.config({ cache: true });
+
+    app.use(bodyParser.json());
+    app.use(dist.engine);
+
+    app.set('views', `${__dirname}/views`);
+
+    app.get('/hello', (req, res) => res.render('sub.hello'));
+  });
+
+  it('should be able to render a basic view', (done) => {
+    request(app)
+      .get('/hello')
+      .end((err, res) => {
+        expect(res.text.trim()).to.eql('hello world');
+        // eslint-disable-next-line
+        expect(edge._options.cache).to.eql(true);
         done();
       });
   });

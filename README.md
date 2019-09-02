@@ -22,13 +22,13 @@ See the [Edge documentation](http://edge.adonisjs.com/) for how to structure you
 ```javascript
 const express = require('express');
 const app = express();
-const expressEdge = require('express-edge');
+const { config, engine } = require('express-edge');
 
 // Configure Edge if need to
-expressEdge.config({cache: process.env.NODE_ENV === 'production'});
+config({ cache: process.env.NODE_ENV === 'production' });
 
 // Automatically sets view engine and adds dot notation to app.render
-app.use(expressEdge.expressEdge);
+app.use(engine);
 app.set('views', `${__dirname}/views`);
 
 app.get('/', (req, res) => {
