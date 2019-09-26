@@ -34,7 +34,7 @@ var engine = function engine(req, res, next) {
   */
 
   req.app.engine('edge', function (filePath, options, callback) {
-    edge.registerViews(options.settings.views);
+    edge.registerViews(req.app.settings.views);
 
     fs.readFile(filePath, 'utf-8', function (err, content) {
       if (err) {
