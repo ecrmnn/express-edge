@@ -24,7 +24,7 @@ var engine = function engine(req, res, next) {
   res.render = function _render(view, options, callback) {
     var self = this;
 
-    render.call(self, view.replace('.', '/'), options, callback);
+    render.call(self, view.replace(/\./gi, '/'), options, callback);
   };
 
   /*
