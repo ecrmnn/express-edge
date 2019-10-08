@@ -21,7 +21,7 @@ const engine = (req, res, next) => {
   res.render = function _render(view, options, callback) {
     const self = this;
 
-    render.call(self, view.replace('.', '/'), options, callback);
+    render.call(self, view.replace(/\./gi, '/'), options, callback);
   };
 
   /*
