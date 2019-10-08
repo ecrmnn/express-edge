@@ -1,6 +1,6 @@
 {
   "name": "express-edge",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Use Edge templating engine with Express",
   "main": "dist/index.js",
   "scripts": {
