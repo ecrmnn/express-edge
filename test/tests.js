@@ -21,6 +21,7 @@ describe('View Test Suite', () => {
     app.set('views', `${__dirname}/views`);
 
     app.get('/hello', (req, res) => res.render('sub.hello'));
+    app.get('/nested', (req, res) => res.render('sub.nested.hello'));
     app.get('/conditionals', (req, res) => res.render('conditionals', req.body));
     app.post('/conditionals', (req, res) => res.render('conditionals', req.body));
     app.post('/iteration', (req, res) => res.render('iteration', req.body));
@@ -30,6 +31,17 @@ describe('View Test Suite', () => {
   it('should be able to render a basic view', (done) => {
     request(app)
       .get('/hello')
+      .end((err, res) => {
+        expect(res.text.trim()).to.eql('hello world');
+        // eslint-disable-next-line
+        expect(edge._options.cache).to.eql(false);
+        done();
+      });
+  });
+
+  it('should be able to render a nested basic view', (done) => {
+    request(app)
+      .get('/nested')
       .end((err, res) => {
         expect(res.text.trim()).to.eql('hello world');
         // eslint-disable-next-line
