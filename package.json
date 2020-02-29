@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ecrmnn/module-boilerplate"
+    "url": "https://github.com/ecrmnn/express-edge"
   },
   "babel": {
     "presets": [
@@ -34,9 +34,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ecrmnn/module-boilerplate/issues"
+    "url": "https://github.com/ecrmnn/express-edge/issues"
   },
-  "homepage": "https://github.com/ecrmnn/module-boilerplate",
+  "homepage": "http://edge.adonisjs.com/",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
