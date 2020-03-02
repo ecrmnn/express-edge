@@ -1,6 +1,6 @@
 {
   "name": "express-edge",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Use Edge templating engine with Express",
   "main": "dist/index.js",
   "scripts": {
@@ -36,7 +36,7 @@
   "bugs": {
     "url": "https://github.com/ecrmnn/express-edge/issues"
   },
-  "homepage": "http://edge.adonisjs.com/",
+  "homepage": "https://github.com/ecrmnn/express-edge",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
