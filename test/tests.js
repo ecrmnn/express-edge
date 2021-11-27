@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const { describe, it, before } = require('mocha');
 const { expect } = require('chai');
 const request = require('supertest');
-const dist = require('../dist');
+const { engine } = require('../dist');
 
 let app;
 
@@ -16,7 +16,7 @@ describe('View Test Suite', () => {
     app = express();
 
     app.use(bodyParser.json());
-    app.use(dist.engine);
+    app.use(engine);
 
     app.set('views', `${__dirname}/views`);
 
@@ -113,7 +113,7 @@ describe('Cache Test Suite', () => {
     process.env.CACHE_VIEWS = '1';
 
     app.use(bodyParser.json());
-    app.use(dist.engine);
+    app.use(engine);
 
     app.set('views', `${__dirname}/views`);
 

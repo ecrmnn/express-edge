@@ -11,6 +11,7 @@ var engine = function engine(req, res, next) {
 
   var render = res.render;
 
+
   res.render = function _render(view, options, callback) {
     var self = this;
 

@@ -22,10 +22,7 @@ See the [Edge documentation](http://edge.adonisjs.com/) for how to structure you
 ```javascript
 const express = require('express');
 const app = express();
-const { config, engine } = require('express-edge');
-
-// Configure Edge if need to
-config({ cache: process.env.NODE_ENV === 'production' });
+const { engine } = require('express-edge');
 
 // Automatically sets view engine and adds dot notation to app.render
 app.use(engine);
