@@ -9,7 +9,7 @@ const engine = (req, res, next) => {
   |-------------------------------------------------------------------------------------------------
   */
 
-  const render = res.render;
+  const { render } = res;
 
   res.render = function _render(view, options, callback) {
     const self = this;
