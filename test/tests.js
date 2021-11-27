@@ -12,7 +12,7 @@ let app;
 
 describe('View Test Suite', () => {
   before(() => {
-    process.env.CACHE_VIEWS = ''; // false
+    process.env.CACHE_VIEWS = false;
     app = express();
 
     app.use(bodyParser.json());
@@ -110,7 +110,7 @@ describe('Cache Test Suite', () => {
   before(() => {
     app = express();
 
-    process.env.CACHE_VIEWS = '1';
+    process.env.CACHE_VIEWS = true;
 
     app.use(bodyParser.json());
     app.use(engine);
