@@ -2,7 +2,6 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const edge = require('edge.js');
 
 const { describe, it, before } = require('mocha');
 const { expect } = require('chai');
@@ -13,6 +12,7 @@ let app;
 
 describe('View Test Suite', () => {
   before(() => {
+    process.env.CACHE_VIEWS = ''; // false
     app = express();
 
     app.use(bodyParser.json());
@@ -23,6 +23,7 @@ describe('View Test Suite', () => {
     app.get('/hello', (req, res) => res.render('sub.hello'));
     app.get('/nested', (req, res) => res.render('sub.nested.hello'));
     app.get('/conditionals', (req, res) => res.render('conditionals', req.body));
+    app.get('/layout', (req, res) => res.render('layout'));
     app.post('/conditionals', (req, res) => res.render('conditionals', req.body));
     app.post('/iteration', (req, res) => res.render('iteration', req.body));
     app.post('/partial', (req, res) => res.render('partial', req.body));
@@ -33,8 +34,6 @@ describe('View Test Suite', () => {
       .get('/hello')
       .end((err, res) => {
         expect(res.text.trim()).to.eql('hello world');
-        // eslint-disable-next-line
-        expect(edge._options.cache).to.eql(false);
         done();
       });
   });
@@ -44,8 +43,6 @@ describe('View Test Suite', () => {
       .get('/nested')
       .end((err, res) => {
         expect(res.text.trim()).to.eql('hello world');
-        // eslint-disable-next-line
-        expect(edge._options.cache).to.eql(false);
         done();
       });
   });
@@ -56,8 +53,6 @@ describe('View Test Suite', () => {
       .send({ name: 'daniel' })
       .end((err, res) => {
         expect(res.text.trim()).to.eql('hello, daniel');
-        // eslint-disable-next-line
-        expect(edge._options.cache).to.eql(false);
         done();
       });
   });
@@ -67,8 +62,6 @@ describe('View Test Suite', () => {
       .get('/conditionals')
       .end((err, res) => {
         expect(res.text.trim()).to.eql('hello');
-        // eslint-disable-next-line
-        expect(edge._options.cache).to.eql(false);
         done();
       });
   });
@@ -84,8 +77,6 @@ describe('View Test Suite', () => {
       })
       .end((err, res) => {
         expect(res.text.trim()).to.eql('Daniel Eckermann (ecrmnn)');
-        // eslint-disable-next-line
-        expect(edge._options.cache).to.eql(false);
         done();
       });
   });
@@ -101,8 +92,15 @@ describe('View Test Suite', () => {
       })
       .end((err, res) => {
         expect(res.text.trim()).to.eql('Daniel Eckermann (ecrmnn)');
-        // eslint-disable-next-line
-        expect(edge._options.cache).to.eql(false);
+        done();
+      });
+  });
+
+  it('should be able to render layouts', (done) => {
+    request(app)
+      .get('/layout')
+      .end((err, res) => {
+        expect(res.text.trim()).to.eql('base layout\njhon doe');
         done();
       });
   });
@@ -112,7 +110,7 @@ describe('Cache Test Suite', () => {
   before(() => {
     app = express();
 
-    dist.config({ cache: true });
+    process.env.CACHE_VIEWS = '1';
 
     app.use(bodyParser.json());
     app.use(dist.engine);
@@ -127,9 +125,15 @@ describe('Cache Test Suite', () => {
       .get('/hello')
       .end((err, res) => {
         expect(res.text.trim()).to.eql('hello world');
-        // eslint-disable-next-line
-        expect(edge._options.cache).to.eql(true);
-        done();
+
+        app.get('/hello', (req, response) => response.render('sub.hello_uncached'));
+
+        request(app)
+          .get('/hello')
+          .end((err2, res2) => {
+            expect(res2.text.trim()).to.eql('hello world');
+            done();
+          });
       });
   });
 });

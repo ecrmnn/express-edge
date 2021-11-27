@@ -1,13 +1,6 @@
 'use strict';
 
-const fs = require('fs');
-const edge = require('edge.js');
-
-const config = ({ cache } = { cache: false }) => {
-  edge.configure({
-    cache,
-  });
-};
+const edge = require('edge.js').default;
 
 const engine = (req, res, next) => {
   /*
@@ -31,15 +24,11 @@ const engine = (req, res, next) => {
   */
 
   req.app.engine('edge', (filePath, options, callback) => {
-    edge.registerViews(req.app.settings.views);
+    edge.mount(req.app.settings.views);
 
-    fs.readFile(filePath, 'utf-8', (err, content) => {
-      if (err) {
-        return callback(err);
-      }
-
-      return callback(null, edge.renderString(content, options));
-    });
+    edge.render(filePath, options)
+      .then((content) => callback(null, content))
+      .catch((err) => callback(err));
   });
 
   /*
@@ -53,4 +42,4 @@ const engine = (req, res, next) => {
   next();
 };
 
-module.exports = { config, engine };
+module.exports = { engine };
