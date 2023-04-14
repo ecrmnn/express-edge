@@ -1,16 +1,9 @@
 'use strict';
 
 var fs = require('fs');
-var edge = require('edge.js');
 
-var config = function config() {
-  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { cache: false },
-      cache = _ref.cache;
-
-  edge.configure({
-    cache: cache
-  });
-};
+var _require = require('edge.js'),
+    Edge = _require.Edge;
 
 var engine = function engine(req, res, next) {
   /*
@@ -20,6 +13,7 @@ var engine = function engine(req, res, next) {
   */
 
   var render = res.render;
+
 
   res.render = function _render(view, options, callback) {
     var self = this;
@@ -34,14 +28,19 @@ var engine = function engine(req, res, next) {
   */
 
   req.app.engine('edge', function (filePath, options, callback) {
-    edge.registerViews(req.app.settings.views);
+    var cache = req.app.settings['view cache'] || false;
+    req.app.settings['view cache'] = cache;
+
+    var edge = new Edge({ cache: cache });
+    edge.mount('default', req.app.settings.views);
+    var template = edge.getRenderer();
 
     fs.readFile(filePath, 'utf-8', function (err, content) {
       if (err) {
         return callback(err);
       }
 
-      return callback(null, edge.renderString(content, options));
+      return callback(null, template.renderRawSync(content, options));
     });
   });
 
@@ -56,4 +55,4 @@ var engine = function engine(req, res, next) {
   next();
 };
 
-module.exports = { config: config, engine: engine };
+module.exports = engine;

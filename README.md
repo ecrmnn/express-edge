@@ -2,7 +2,7 @@
 
 > Use Edge templating engine with Express
 
-[![travis](https://img.shields.io/travis/ecrmnn/express-edge/master.svg?style=flat-square)](https://travis-ci.org/ecrmnn/express-edge/builds)
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fecrmnn%2Fexpress-edge%2Fbadge%3Fref%3Dmaster&style=flat-square&label=build)](https://github.com/ecrmnn/express-edge/actions)
 [![npm version](https://img.shields.io/npm/v/express-edge.svg?style=flat-square)](http://badge.fury.io/js/express-edge)
 [![npm downloads](https://img.shields.io/npm/dm/express-edge.svg?style=flat-square)](http://badge.fury.io/js/express-edge)
 [![npm license](https://img.shields.io/npm/l/express-edge.svg?style=flat-square)](http://badge.fury.io/js/express-edge)
@@ -22,17 +22,19 @@ See the [Edge documentation](http://edge.adonisjs.com/) for how to structure you
 ```javascript
 const express = require('express');
 const app = express();
-const { config, engine } = require('express-edge');
-
-// Configure Edge if need to
-config({ cache: process.env.NODE_ENV === 'production' });
+const engine = require('express-edge');
 
 // Automatically sets view engine and adds dot notation to app.render
 app.use(engine);
 app.set('views', `${__dirname}/views`);
 
+// Configure view caching
+app.enable('view cache');
+// --- or ---
+app.diable('view cache');
+
 app.get('/', (req, res) => {
-  res.render('users.index', { users: [...] });
+  res.render('users.index', { users });
 });
 
 app.listen(3000);

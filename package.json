@@ -1,6 +1,6 @@
 {
   "name": "express-edge",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "description": "Use Edge templating engine with Express",
   "main": "dist/index.js",
   "scripts": {
@@ -38,19 +38,19 @@
   },
   "homepage": "https://github.com/ecrmnn/express-edge",
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.25.0",
-    "babel-preset-env": "^1.6.1",
-    "body-parser": "^1.18.2",
-    "chai": "^4.1.0",
-    "eslint": "^4.12.1",
-    "eslint-config-airbnb-base": "^11.2.0",
-    "eslint-plugin-import": "^2.7.0",
-    "express": "^4.16.2",
-    "mocha": "^3.4.2",
-    "supertest": "^3.0.0"
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "body-parser": "^1.20.2",
+    "chai": "^4.3.7",
+    "eslint": "^8.38.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "express": "^4.18.2",
+    "mocha": "^10.2.0",
+    "supertest": "^6.3.3"
   },
   "dependencies": {
-    "edge.js": "^1.1.4"
+    "edge.js": "^5.5.1"
   }
 }
