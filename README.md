@@ -17,7 +17,7 @@ npm install express-edge --save
 
 ## Usage
 
-See the [Edge documentation](http://edge.adonisjs.com/) for how to structure your templates.
+See the [Edge documentation](https://docs.adonisjs.com/guides/views/introduction) for how to structure your templates.
 
 ```javascript
 const express = require('express');
