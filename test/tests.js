@@ -3,7 +3,7 @@ const bodyParser = require("body-parser")
 const { describe, it, before } = require("mocha")
 const { expect } = require("chai")
 const request = require("supertest")
-const dist = require("../dist")
+const engine = require("../dist/index.js")
 
 let app
 
@@ -12,14 +12,14 @@ describe("View Test Suite", () => {
         app = express()
 
         app.use(bodyParser.json())
-        app.use(dist)
+        app.use(engine)
 
         app.set("views", `${__dirname}/views`)
 
-        app.get("/hello", (req, res) =>
+        app.get("/hello", (_, res) =>
             res.render("sub.hello", { name: "John Doe" }),
         )
-        app.get("/nested", (req, res) => res.render("sub.nested.hello"))
+        app.get("/nested", (_, res) => res.render("sub.nested.hello"))
         app.get("/conditionals", (req, res) =>
             res.render("conditionals", req.body),
         )
@@ -34,8 +34,8 @@ describe("View Test Suite", () => {
     it("should be able to render a basic view", done => {
         request(app)
             .get("/hello")
-            .end((err, res) => {
-                expect(res.text.trim()).to.eql("Hello world, John Doe")
+            .end((_, res) => {
+                expect(res.text.trim()).to.eql("Hello John Doe")
                 done()
             })
     })
@@ -43,8 +43,8 @@ describe("View Test Suite", () => {
     it("should be able to render a nested basic view", done => {
         request(app)
             .get("/nested")
-            .end((err, res) => {
-                expect(res.text.trim()).to.eql("hello world")
+            .end((_, res) => {
+                expect(res.text.trim()).to.eql("Hello World")
                 done()
             })
     })
@@ -52,9 +52,9 @@ describe("View Test Suite", () => {
     it("should be able to render conditionals", done => {
         request(app)
             .post("/conditionals")
-            .send({ name: "daniel" })
-            .end((err, res) => {
-                expect(res.text.trim()).to.eql("hello, daniel")
+            .send({ name: "Daniel" })
+            .end((_, res) => {
+                expect(res.text.trim()).to.eql("Hello Daniel")
                 done()
             })
     })
@@ -62,8 +62,8 @@ describe("View Test Suite", () => {
     it("should be able to render conditionals without data", done => {
         request(app)
             .get("/conditionals")
-            .end((err, res) => {
-                expect(res.text.trim()).to.eql("hello")
+            .end((_, res) => {
+                expect(res.text.trim()).to.eql("Hello")
                 done()
             })
     })
@@ -79,7 +79,7 @@ describe("View Test Suite", () => {
                     },
                 ],
             })
-            .end((err, res) => {
+            .end((_, res) => {
                 expect(res.text.trim()).to.eql("Daniel Eckermann (ecrmnn)")
                 done()
             })
@@ -96,7 +96,7 @@ describe("View Test Suite", () => {
                     },
                 ],
             })
-            .end((err, res) => {
+            .end((_, res) => {
                 expect(res.text.trim()).to.eql("Daniel Eckermann (ecrmnn)")
                 done()
             })
@@ -108,11 +108,11 @@ describe("Cache Test Suite", () => {
         app = express()
 
         app.use(bodyParser.json())
-        app.use(dist)
+        app.use(engine)
 
         app.set("views", `${__dirname}/views`)
 
-        app.get("/hello", (req, res) => res.render("cache"))
+        app.get("/hello", (_, res) => res.render("cache"))
     })
 
     it("should detect that view cache is enabled", done => {
@@ -120,7 +120,7 @@ describe("Cache Test Suite", () => {
 
         request(app)
             .get("/hello")
-            .end((err, res) => {
+            .end((_, res) => {
                 expect(res.text.trim()).to.eql("Cache enabled: true")
                 done()
             })
@@ -131,7 +131,7 @@ describe("Cache Test Suite", () => {
 
         request(app)
             .get("/hello")
-            .end((err, res) => {
+            .end((_, res) => {
                 expect(res.text.trim()).to.eql("Cache enabled: false")
                 done()
             })
