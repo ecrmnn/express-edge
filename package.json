@@ -51,6 +51,7 @@
     "adonis",
     "edge",
     "template",
-    "templating"
+    "templating",
+    "engine"
   ]
 }
