@@ -15,9 +15,9 @@ describe("View Test Suite", () => {
         app.set("views", `${__dirname}/views`)
 
         app.get("/hello", (_, res) =>
-            res.render("sub.hello", { name: "John Doe" }),
+            res.render("sub/hello", { name: "John Doe" }),
         )
-        app.get("/nested", (_, res) => res.render("sub.nested.hello"))
+        app.get("/nested", (_, res) => res.render("sub/nested/hello"))
         app.get("/conditionals", (req, res) =>
             res.render("conditionals", req.body),
         )
