@@ -13,7 +13,7 @@
 ## Installation
 
 ```bash
-npm install express-edge --save
+npm install express-edge
 ```
 
 ## Usage
