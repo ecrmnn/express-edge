@@ -15,33 +15,33 @@ See the [Edge documentation](https://docs.adonisjs.com/guides/views/introduction
 You'll need at least [Node](https://github.com/nodejs/node) v14 or higher to use Express Edge v3.
 
 ```js
-const express = require('express');
-const engine = require('express-edge');
+const express = require("express")
+const engine = require("express-edge")
 
-const app = express();
+const app = express()
 
 // Automatically sets view engine and adds dot notation to app.render
-app.use(engine);
-app.set('views', `${__dirname}/views`);
+app.use(engine)
+app.set("views", `${__dirname}/views`)
 
-app.get('/', (req, res) => {
-  res.render('index', { greeting: 'Hello world' });
-});
+app.get("/", (req, res) => {
+    res.render("index", { greeting: "Hello world" })
+})
 
 app.listen(PORT, () => {
-  console.log(`Listening on http://localhost:${PORT}`);
-});
+    console.log(`Listening on http://localhost:${PORT}`)
+})
 ```
 
 `views/index.edge`:
 
 ```html
-<p> {{ greeting }} </p>
+<p>{{ greeting }}</p>
 ```
 
 ### Configure view caching
 
 ```js
-app.enable('view cache');
+app.enable("view cache")
 // app.diable('view cache');
 ```

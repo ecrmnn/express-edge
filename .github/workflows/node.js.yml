@@ -1,34 +1,34 @@
 name: Express Edge CI
 
 on:
-  push:
-    branches:
-      - master
-      - 'feature/*'
-      - 'hotfix/*'
-  pull_request:
-    branches: [ main ]
+    push:
+        branches:
+            - master
+            - "feature/*"
+            - "hotfix/*"
+    pull_request:
+        branches: [main]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: ['18', '16', '14']
+    build:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: ["18", "16", "14"]
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        
-    - name: Install Dependencies
-      run: npm install
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v2
+              with:
+                  node-version: ${{ matrix.node-version }}
 
-    - name: Run Linter and Tests
-      run: |
-        npm test
-        npm run eslint
+            - name: Install Dependencies
+              run: npm install
+
+            - name: Run Linter and Tests
+              run: |
+                  npm test
+                  npm run eslint
