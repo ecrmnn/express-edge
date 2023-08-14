@@ -43,7 +43,7 @@ app.listen(PORT, () => {
 
 ```js
 app.enable("view cache")
-// app.diable('view cache');
+// app.disable('view cache');
 ```
 
 ## Development
