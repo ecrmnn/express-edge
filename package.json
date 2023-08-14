@@ -2,6 +2,7 @@
   "name": "express-edge",
   "version": "3.0.0",
   "description": "Use Edge templating engine with Express",
+  "license": "MIT",
   "main": "dist/index.js",
   "scripts": {
     "pretest": "rm -rf dist && npm run transpile",
@@ -10,33 +11,9 @@
     "eslint": "node_modules/.bin/eslint src/ test/",
     "prepublishOnly": "npm run transpile"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ecrmnn/express-edge"
+  "dependencies": {
+    "edge.js": "^5.5.1"
   },
-  "babel": {
-    "presets": [
-      "env"
-    ]
-  },
-  "keywords": [
-    "express",
-    "express.js",
-    "adonis",
-    "edge",
-    "template",
-    "templating"
-  ],
-  "author": {
-    "name": "Daniel Eckermann",
-    "email": "danieleckermann@gmail.com",
-    "url": "http://danieleckermann.com"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ecrmnn/express-edge/issues"
-  },
-  "homepage": "https://github.com/ecrmnn/express-edge",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
@@ -50,7 +27,30 @@
     "mocha": "^10.2.0",
     "supertest": "^6.3.3"
   },
-  "dependencies": {
-    "edge.js": "^5.5.1"
-  }
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ecrmnn/express-edge"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  },
+  "author": {
+    "name": "Daniel Eckermann",
+    "email": "danieleckermann@gmail.com",
+    "url": "http://danieleckermann.com"
+  },
+  "bugs": {
+    "url": "https://github.com/ecrmnn/express-edge/issues"
+  },
+  "homepage": "https://github.com/ecrmnn/express-edge",
+  "keywords": [
+    "express",
+    "express.js",
+    "adonis",
+    "edge",
+    "template",
+    "templating"
+  ]
 }
