@@ -45,3 +45,7 @@ app.listen(PORT, () => {
 app.enable("view cache")
 // app.diable('view cache');
 ```
+
+## Development
+
+Run `npm transpile` to build the `./dist` folder.
