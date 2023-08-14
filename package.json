@@ -30,6 +30,9 @@
         "prettier": "^3.0.1",
         "supertest": "^6.3.3"
     },
+    "engines": {
+        "node": ">=15"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/ecrmnn/express-edge"
