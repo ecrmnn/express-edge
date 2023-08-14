@@ -10,10 +10,8 @@ let app
 describe("View Test Suite", () => {
     before(() => {
         app = express()
-
         app.use(bodyParser.json())
         app.use(engine)
-
         app.set("views", `${__dirname}/views`)
 
         app.get("/hello", (_, res) =>
