@@ -12,7 +12,7 @@ npm i express-edge
 
 See the [Edge documentation](https://docs.adonisjs.com/guides/views/introduction) for how to structure your templates.
 
-You'll need at least [Node](https://github.com/nodejs/node) v14 or higher to use Express Edge v3.
+You'll need at least [Node](https://github.com/nodejs/node) v15 or higher to use Express Edge v3.
 
 ```js
 const express = require("express")
